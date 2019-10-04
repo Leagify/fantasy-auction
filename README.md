@@ -27,15 +27,15 @@ Likely, this repository will be some sort of C# SignalR web application.
   - The position
   - The auction cost
   
-  Nice to haves:
-  
-  + We could save the auction CSV result file somewhere on the server for later viewing
-  + We could color code the "positions"
-  
-  Technologies:
-  + ASP.NET (or ASP.NET Core)
-  + SignalR
-  + Blazor? (not required, but an interesting idea)
+Nice to haves:
+
++ We could save the auction CSV result file somewhere on the server for later viewing
++ We could color code the "positions"
+
+Technologies:
++ ASP.NET (or ASP.NET Core)
++ SignalR
++ Blazor? (not required, but an interesting idea)
   
   Potential repositories to view for inspiration:
   + https://github.com/moozzyk/SignalRCoreAuction
