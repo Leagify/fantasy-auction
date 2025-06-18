@@ -1,0 +1,6 @@
+@FantasyAuctionWASM.Server_HostAddress = http://localhost:5071
+
+GET {{FantasyAuctionWASM.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

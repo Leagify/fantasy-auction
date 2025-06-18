@@ -1,0 +1,14 @@
+// FantasyAuctionApp/Components/Pages/AuctionStatus.razor
+@page "/auction-status"
+@* @inject FantasyAuctionApp.Services.AuctionService AuctionService *@
+@* TODO: Adjust injection and service usage for WASM client and Shared models.
+   This will likely involve injecting a client-specific service or directly interacting
+   with SignalR hub connection for status updates. The original AuctionService was server-side. *@
+
+<h3>Auction Status</h3>
+@* <p>@AuctionService.GetCurrentAuctionStatus()</p> *@
+<p>Auction status will be displayed here.</p> @* Placeholder until service is connected *@
+
+@code {
+    // TODO: Logic to update status via SignalR
+}

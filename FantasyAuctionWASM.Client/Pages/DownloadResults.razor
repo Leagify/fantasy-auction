@@ -1,0 +1,36 @@
+@page "/download-results"
+@inject IJSRuntime JSRuntime
+@using System.Text
+@using FantasyAuctionWASM.Shared // For potential future use with actual models
+
+<h3>Download Auction Results</h3>
+
+<p>Once the auction is complete, you can download the results as a CSV file.</p>
+
+<button class="btn btn-primary" @onclick="DownloadCsv">Download CSV</button>
+
+@code {
+    private async Task DownloadCsv()
+    {
+        // TODO: In a real app, this data would come from a service,
+        // which in turn might get it from the server API or SignalR updates.
+        var csvData = GenerateDummyCsvData();
+        var fileName = "auction_results_wasm.csv"; // Changed filename slightly for clarity
+        var bytes = Encoding.UTF8.GetBytes(csvData);
+
+        // Trigger download using JavaScript interop.
+        // The saveAsFile JS function will need to be in wwwroot/index.html or a referenced JS file.
+        await JSRuntime.InvokeVoidAsync("saveAsFile", fileName, Convert.ToBase64String(bytes));
+    }
+
+    private string GenerateDummyCsvData()
+    {
+        var builder = new StringBuilder();
+        builder.AppendLine("BidderName,PlayerName,Position,AuctionCost");
+        builder.AppendLine("Bidder A (WASM),Player 1,QB,25");
+        builder.AppendLine("Bidder B (WASM),Player 2,WR,18");
+        builder.AppendLine("Bidder A (WASM),Player 3,RB,30");
+        // Add more dummy data as needed
+        return builder.ToString();
+    }
+}

@@ -1,0 +1,42 @@
+@page "/available-players"
+@using FantasyAuctionWASM.Shared
+@inject HttpClient Http // Inject HttpClient
+
+<h3>Available Players (WASM)</h3>
+
+@if (players == null)
+{
+    <p><em>Loading players...</em></p>
+}
+else if (!players.Any())
+{
+    <p>No players available.</p>
+}
+else
+{
+    <ul>
+        @foreach (var player in players)
+        {
+            <li>@player.Name (@player.Position)</li>
+        }
+    </ul>
+}
+
+@code {
+    private List<Player>? players; // Nullable to indicate loading state
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            players = await Http.GetFromJsonAsync<List<Player>>("api/players");
+        }
+        catch (Exception ex)
+        {
+            // Handle error, e.g., log it or display a message
+            Console.WriteLine($"Error fetching players: {ex.Message}");
+            players = new List<Player>(); // Fallback to empty list or display error message
+        }
+    }
+    // TODO: Logic to update list via SignalR or service calls for real-time changes
+}

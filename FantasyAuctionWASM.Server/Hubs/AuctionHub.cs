@@ -1,7 +1,7 @@
-// FantasyAuctionApp/Hubs/AuctionHub.cs
+// FantasyAuctionWASM.Server/Hubs/AuctionHub.cs
 using Microsoft.AspNetCore.SignalR;
 
-namespace FantasyAuctionApp.Hubs
+namespace FantasyAuctionWASM.Server.Hubs // Updated namespace
 {
     public class AuctionHub : Hub
     {

@@ -1,0 +1,48 @@
+@page "/bidder-roster"
+@using FantasyAuctionWASM.Shared
+@inject HttpClient Http // Inject HttpClient
+
+<h3>My Roster (WASM)</h3>
+
+@if (bidder == null)
+{
+    <p><em>Loading roster...</em></p>
+}
+else
+{
+    <p>Bidder: @bidder.Name</p>
+    <p>Budget: @bidder.Budget.ToString("C")</p>
+    @if (bidder.Roster != null && bidder.Roster.Any())
+    {
+        <ul>
+            @foreach (var player in bidder.Roster)
+            {
+                <li>@player.Name (@player.Position)</li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>Your roster is empty.</p>
+    }
+}
+
+@code {
+    private Bidder? bidder; // Nullable for loading state
+    private string currentBidderId = "testUser"; // Example, would come from auth/context
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            bidder = await Http.GetFromJsonAsync<Bidder>($"api/bidders/{currentBidderId}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching bidder details: {ex.Message}");
+            // Fallback or error display
+            bidder = new Bidder { Name = "Error loading data", Roster = new List<Player>() };
+        }
+    }
+    // TODO: Logic to update roster and budget (likely via SignalR for real-time)
+}

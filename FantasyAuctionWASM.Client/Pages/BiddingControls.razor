@@ -1,0 +1,41 @@
+// FantasyAuctionWASM.Client/Pages/BiddingControls.razor
+@page "/bidding-controls"
+@* TODO: Inject HubConnection or a client-side service to interact with SignalR *@
+
+<h3>Bidding Controls</h3>
+<div>
+    <label>Current Player: @CurrentPlayerName (@CurrentPlayerPosition)</label>
+</div>
+<div>
+    <label>Current Bid: @CurrentBid.ToString("C")</label>
+</div>
+<div>
+    <label>Highest Bidder: @HighestBidderName</label>
+</div>
+<input type="number" @bind="bidAmount" placeholder="Enter your bid" />
+<button @onclick="PlaceBid">Place Bid</button>
+<button @onclick="NominatePlayer">Nominate Player</button>
+
+@code {
+    private string CurrentPlayerName = "Player X (WASM)"; // Placeholder
+    private string CurrentPlayerPosition = "QB"; // Placeholder
+    private double CurrentBid = 10.0; // Placeholder
+    private string HighestBidderName = "Bidder Z (WASM)"; // Placeholder
+    private double bidAmount;
+
+    private async Task PlaceBid()
+    {
+        // TODO: Implement bidding logic using SignalR
+        // Example: await hubConnection.SendAsync("SendBid", "CurrentUser", CurrentPlayerName, bidAmount);
+        Console.WriteLine($"Bid placed: {bidAmount}");
+        await Task.CompletedTask; // Replace with actual async call
+    }
+
+    private async Task NominatePlayer()
+    {
+        // TODO: Implement nomination logic
+        Console.WriteLine("Nominate Player clicked");
+        await Task.CompletedTask; // Replace with actual async call
+    }
+    // TODO: Implement bidding logic, connect to AuctionHub
+}

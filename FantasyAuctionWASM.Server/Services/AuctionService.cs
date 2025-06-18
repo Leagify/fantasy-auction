@@ -1,5 +1,5 @@
-// FantasyAuctionApp/Services/AuctionService.cs
-namespace FantasyAuctionApp.Services
+// FantasyAuctionWASM.Server/Services/AuctionService.cs
+namespace FantasyAuctionWASM.Server.Services // Updated namespace
 {
     public class AuctionService
     {

@@ -1,0 +1,94 @@
+@page "/"
+@inject NavigationManager NavigationManager
+@using Microsoft.AspNetCore.SignalR.Client
+@implements IAsyncDisposable
+
+<PageTitle>Home - Fantasy Auction (WASM)</PageTitle>
+
+<h1>Hello, Fantasy Auctioneers! (WASM Version)</h1>
+
+<p>Welcome to the Blazor WebAssembly version of the auction app.</p>
+
+<p>SignalR Connection Status: @connectionStatus</p>
+
+@if (messages.Any())
+{
+    <ul>
+        @foreach (var message in messages)
+        {
+            <li>@message</li>
+        }
+    </ul>
+}
+
+@code {
+    private HubConnection? hubConnection;
+    private string connectionStatus = "Not connected.";
+    private List<string> messages = new List<string>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl(NavigationManager.ToAbsoluteUri("/auctionhub")) // Points to the server-hosted hub
+            .WithAutomaticReconnect() // Good practice
+            .Build();
+
+        // Example: Define a handler for a "ReceiveMessage" event from the server
+        hubConnection.On<string, string>("ReceiveMessage", (user, message) =>
+        {
+            var receivedMessage = $"Message from {user}: {message}";
+            messages.Add(receivedMessage);
+            InvokeAsync(StateHasChanged); // Ensure UI updates
+        });
+
+        hubConnection.Closed += async (error) =>
+        {
+            connectionStatus = "Connection closed.";
+            messages.Add($"Connection closed: {error?.Message}");
+            await InvokeAsync(StateHasChanged);
+            // Optionally, try to reconnect or notify user
+            // messages.Add("Attempting to reconnect...");
+            // await InvokeAsync(StateHasChanged);
+            // await Task.Delay(new Random().Next(0,5) * 1000);
+            // await ConnectWithRetryAsync();
+        };
+
+        await ConnectWithRetryAsync();
+    }
+
+    async Task ConnectWithRetryAsync()
+    {
+        if (hubConnection == null) return;
+
+        connectionStatus = "Connecting...";
+        messages.Add("Attempting to connect to SignalR Hub...");
+        await InvokeAsync(StateHasChanged);
+
+        try
+        {
+            await hubConnection.StartAsync();
+            connectionStatus = "Connected!";
+            messages.Add("SignalR Connection Started successfully.");
+            Console.WriteLine("SignalR Connection Started");
+        }
+        catch (Exception ex)
+        {
+            connectionStatus = $"Connection failed: {ex.Message}";
+            messages.Add($"Error starting SignalR connection: {ex.Message}");
+            Console.WriteLine($"Error starting SignalR connection: {ex.Message}");
+            // Optionally, implement more robust retry logic here, e.g., with exponential backoff
+        }
+        await InvokeAsync(StateHasChanged);
+    }
+
+    public bool IsConnected => hubConnection?.State == HubConnectionState.Connected;
+
+    public async ValueTask DisposeAsync()
+    {
+        if (hubConnection is not null)
+        {
+            messages.Add("Disposing HubConnection.");
+            await hubConnection.DisposeAsync();
+        }
+    }
+}
