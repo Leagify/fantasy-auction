@@ -1,0 +1,143 @@
+# Prerequisites
+*.vspscc
+*.vssscc
+*.suo
+
+# User-specific files
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio code coverage results
+*.coverage
+*.coveragexml
+
+# NUnit
+*.VisualState.xml
+TestResult.xml
+nunit-*.xml
+
+# Build Results of an Entity Framework Model (.edmxxx)
+*.mdf
+*.ldf
+*.ndf
+
+# Test files
+*.testsettings
+
+# Visual Studio profiler
+*.psess
+*.vsp
+*.vspx
+*.sap
+
+# Visual Studio Trace Files
+*.e2e
+
+# TFS Raw Server Output Files
+*_i.txt
+*_p.txt
+
+# ASP.NET Scaffolding
+**/MDF*.mdf
+**/App_Data/*.mdf
+**/App_Data/*.ldf
+
+# Visual Studio cache files
+# files ending in .cache can be source files, so check for specific paths
+.vs/
+# ReSharper is a .vs plugin but stores cache files outside .vs
+# project-level caches
+_ReSharper*/
+# solution-level caches
+_ReSharper*.sln/
+
+# Rider
+.idea/
+*.idea__*.*
+*.idea/*
+
+# Backup files
+*.bak
+
+# Package Restore Folders
+**/packages/*
+# except build/, fonts/, images/, and lib/
+!**/packages/build/
+!**/packages/fonts/
+!**/packages/images/
+!**/packages/lib/
+# if using Paket, add .paket/ to packages/ above instead of this line
+.paket/paket.bootstrapper.exe
+
+# NuGet Caching
+# TODO: If you are using a different path for your NuGet packages,
+# please update the path here:
+# https://docs.microsoft.com/en-us/nuget/consume-packages/managing-the-global-packages-and-cache-folders
+# %USERPROFILE%/.nuget/packages/
+# ~/.nuget/packages/
+# ~/.local/share/NuGet/
+
+# Windows files
+[Tt]humbs.db
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux files
+*~
+
+# Others
+*.docstates
+
+# Secrets and API keys
+secrets.json
+appsettings.Development.json
+# Consider ignoring all appsettings.*.json except appsettings.json and appsettings.Production.json
+# if they contain sensitive information or developer-specific settings.
+# !appsettings.json
+# !appsettings.Production.json
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+# yarn.lock # Uncomment if you use Yarn
+
+# Client-side build output (e.g., from Blazor WASM client project)
+**/wwwroot/dist # Example for JS build output
+**/wwwroot/_framework/_bin # Older Blazor WASM output, not typical for .NET 6+
+**/wwwroot/_framework # Generally, _framework contains published outputs
+
+# Blazor WebAssembly specific
+# The FantasyAuctionWASM.Client/bin and FantasyAuctionWASM.Client/obj folders should be covered by the general [Bb]in/ and [Oo]bj/
+# However, sometimes publish outputs go to specific release folders within client projects.
+# FantasyAuctionWASM.Client/bin/Release/net8.0/publish/wwwroot/_framework/
+# FantasyAuctionWASM.Client/bin/Release/net8.0/browser-wasm/publish/wwwroot/_framework/
+# These are generally covered by bin/ and obj/
+
+# Output folder from `dotnet publish -o publish_output`
+publish_output/
