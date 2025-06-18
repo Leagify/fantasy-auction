@@ -1,0 +1,29 @@
+// FantasyAuctionApp/Components/Pages/AvailablePlayers.razor
+@page "/available-players"
+@using FantasyAuctionApp.Services
+@inject PlayerService PlayerService
+
+<h3>Available Players</h3>
+@if (players.Any())
+{
+    <ul>
+        @foreach (var player in players)
+        {
+            <li>@player.Name (@player.Position)</li>
+        }
+    </ul>
+}
+else
+{
+    <p>No players available.</p>
+}
+
+@code {
+    private List<Player> players = new List<Player>();
+
+    protected override void OnInitialized()
+    {
+        players = PlayerService.GetAvailablePlayers();
+    }
+    // TODO: Logic to update list via SignalR or service calls
+}

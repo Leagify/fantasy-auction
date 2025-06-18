@@ -1,0 +1,10 @@
+// FantasyAuctionApp/Components/Pages/AuctionStatus.razor
+@page "/auction-status"
+@inject FantasyAuctionApp.Services.AuctionService AuctionService
+
+<h3>Auction Status</h3>
+<p>@AuctionService.GetCurrentAuctionStatus()</p>
+
+@code {
+    // TODO: Logic to update status via SignalR
+}

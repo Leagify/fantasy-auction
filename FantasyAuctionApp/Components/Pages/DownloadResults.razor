@@ -1,0 +1,32 @@
+@page "/download-results"
+@inject IJSRuntime JSRuntime
+@using System.Text
+
+<h3>Download Auction Results</h3>
+
+<p>Once the auction is complete, you can download the results as a CSV file.</p>
+
+<button class="btn btn-primary" @onclick="DownloadCsv">Download CSV</button>
+
+@code {
+    private async Task DownloadCsv()
+    {
+        var csvData = GenerateDummyCsvData();
+        var fileName = "auction_results.csv";
+        var bytes = Encoding.UTF8.GetBytes(csvData);
+
+        // Trigger download using JavaScript interop
+        await JSRuntime.InvokeVoidAsync("saveAsFile", fileName, Convert.ToBase64String(bytes));
+    }
+
+    private string GenerateDummyCsvData()
+    {
+        var builder = new StringBuilder();
+        builder.AppendLine("BidderName,PlayerName,Position,AuctionCost");
+        builder.AppendLine("Bidder A,Player 1,QB,25");
+        builder.AppendLine("Bidder B,Player 2,WR,18");
+        builder.AppendLine("Bidder A,Player 3,RB,30");
+        // Add more dummy data as needed
+        return builder.ToString();
+    }
+}

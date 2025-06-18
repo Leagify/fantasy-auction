@@ -1,0 +1,32 @@
+// FantasyAuctionApp/Components/Pages/BidderRoster.razor
+@page "/bidder-roster"
+@using FantasyAuctionApp.Services
+@inject BidderService BidderService
+
+<h3>My Roster</h3>
+<p>Bidder: @bidder.Name</p>
+<p>Budget: @bidder.Budget.ToString("C")</p>
+@if (bidder.Roster.Any())
+{
+    <ul>
+        @foreach (var player in bidder.Roster)
+        {
+            <li>@player.Name (@player.Position)</li>
+        }
+    </ul>
+}
+else
+{
+    <p>Your roster is empty.</p>
+}
+
+@code {
+    private Bidder bidder = new Bidder();
+    private string currentBidderId = "testUser"; // Example, would come from auth/context
+
+    protected override void OnInitialized()
+    {
+        bidder = BidderService.GetBidderDetails(currentBidderId);
+    }
+    // TODO: Logic to update roster and budget
+}
