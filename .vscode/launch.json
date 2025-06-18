@@ -1,0 +1,31 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch Server (WASM Hosted)",
+            "type": "dotnet", // This uses the C# Dev Kit debugger
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/FantasyAuctionWASM.Server/FantasyAuctionWASM.Server.csproj",
+            "launchBrowser": {
+                "enabled": true
+                // "url": "https://localhost:7071" // Example, Kestrel URL from launchSettings.json
+                // The C# Dev Kit debugger usually respects launchSettings.json for the URL.
+                // If not, you might need to specify the URL here.
+                // For Codespaces, the forwarded port URL will be different.
+                // It's often best to let Codespaces handle opening the correct URL.
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views" // Example if you had server-side views
+            }
+        },
+        {
+            "name": ".NET Core Attach", // Example of an attach configuration
+            "type": "coreclr",
+            "request": "attach",
+            "processId": "${command:pickProcess}"
+        }
+    ]
+}

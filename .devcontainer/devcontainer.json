@@ -1,0 +1,52 @@
+{
+    "name": ".NET Development",
+    "image": "mcr.microsoft.com/devcontainers/dotnet:0-8.0", // Using .NET 8 base image
+    "features": {
+        "ghcr.io/devcontainers/features/dotnet:1": {
+            "version": "8.0" // Ensure .NET 8 SDK is available
+        }
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-dotnettools.csdevkit", // Recommended for C# development
+                "ms-vscode.vscode-node-azure-pack" // Useful for Azure deployments, optional
+            ]
+        }
+    },
+    // Forward the port Kestrel usually runs on for HTTPS.
+    // ASP.NET Core in .NET 8 often uses ports in the 7xxx range for HTTPS and 5xxx for HTTP.
+    // Let's forward a common one, but users might need to adjust if their app uses a different specific port.
+    // Codespaces usually auto-detects and forwards ports when an application starts listening.
+    // Explicitly listing them can be helpful.
+    "forwardPorts": [7000, 7001, 7002, 5000, 5001, 5002], // Common ASP.NET Core ports.
+                                                 // The specific port for FantasyAuctionWASM.Server
+                                                 // will be determined by its launchSettings.json.
+                                                 // Codespaces will detect and forward this when `dotnet run` is used.
+
+    // "appPort": 7071, // Example: if your app consistently uses one port.
+
+    // After the container is created, build the solution.
+    "postCreateCommand": "dotnet build FantasyAuctionWASM.sln",
+
+    // "postAttachCommand": {
+    //   "server": "dotnet watch run --project FantasyAuctionWASM.Server"
+    // },
+
+    "portsAttributes": {
+        "5001": { // Example if HTTPS is on 5001
+            "label": "App HTTPS",
+            "onAutoForward": "openBrowser"
+        },
+        "7071": { // Example if HTTPS is on 7071 (from launchSettings.json perhaps)
+            "label": "App HTTPS",
+            "onAutoForward": "openPreview"
+        }
+    },
+
+    // Use 'postCreateCommand' to run commands after the container is created.
+    // Use 'postStartCommand' to run commands after the container is created and VS Code is attached.
+    // Use 'postAttachCommand' to run commands after VS Code is attached.
+
+    "remoteUser": "vscode" // Or "root" if needed, "vscode" is common for devcontainers
+}
